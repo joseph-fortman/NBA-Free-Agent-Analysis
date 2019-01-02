@@ -15,7 +15,10 @@ def create_CSV(data):
     fp.close()
 
 def main (argv):
-    # teams, players, (options) years
+    # argv format: teams, players, (options) years
+    if (len(argv) == 0):
+        quit()
+
     if (argv[1] == "all"):
         # have function to call module for all players
         print (all)
