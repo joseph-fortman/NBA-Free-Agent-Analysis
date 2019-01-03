@@ -1,13 +1,17 @@
+import time
 import urllib.request
 from bs4 import BeautifulSoup
 
+EXT = "https://www.basketball-reference.com"
+table = "per_game"
+year = "2018-19"
+
 def create_CSV(urls):
-    table = "per_game"
-    year = "2017-18"
     data = ""
     for name in urls:
-        print(name + " " + urls[name])
-        data += name + "," + get_table(urls[name], table, year)
+        print(name + " " + EXT+urls[name])
+        data += name + "," + get_table(EXT + urls[name])
+        time.sleep(5)
     # write all contents
     fp = open("data/matrix.csv", 'w+')
     fp.write(data)
@@ -16,7 +20,7 @@ def create_CSV(urls):
     return
 
 # get comma delimited text of per_game data for specified year
-def get_table(player_url, table, year):
+def get_table(player_url):
     url = player_url
     page = urllib.request.urlopen(url)
     soup = BeautifulSoup(page, 'html.parser')

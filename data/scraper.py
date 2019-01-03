@@ -1,12 +1,8 @@
-# import libraries
-#import time
 import sys
 import os
 import json
 from player_stats import create_CSV
-#import player_urls.py
-
-#from datetime import datetime
+from player_urls import update_URLs
 
 def main (argv):
     # argv format: teams, players, (options) years
@@ -14,24 +10,25 @@ def main (argv):
         print("USAGE> python scraper.py ['all' | 'John,Wall Bradley,Beal' | 'urls']")
         quit()
 
+    # get all players' per_game stats
     if (argv[1] == "all"):
-        # have function to call module for all players
-        dirtyURLs = []
         with open('data/urls.json') as jsonData:
-            dirtyURLs = json.load(jsonData)
-            urls = dirtyURLs["players"]
-            #print (dirtyURLs)
+            urls = json.load(jsonData)
+        # send dict of (name : relative url) pairs
+        create_CSV(urls)
 
-        #urls = dirtyURLs["Tony Snell"]
-        #print(urls)
-        # create the array of links
-        data = create_CSV(urls)
+    # update abc.json with relative player page links
+    elif (argv[1] == "urls"):
+        year = "2019"
+        update_URLs(year)
+
+    # treat other arguments as single player names (handle issues)
     else:
         for term in argv:
             # make call to module
             print (term)
 
-    # return data
+    # success
     return 1
 
 
