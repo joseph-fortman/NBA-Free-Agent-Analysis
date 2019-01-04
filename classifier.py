@@ -1,19 +1,29 @@
 import numpy as np
 
-#X = np.zeros((3,3))
-X = np.genfromtxt('data/matrix.csv', delimiter=',')
-X = np.delete(X, 0, 1)
-print(X)
+def create_classifier():
+    # load matrix
+    X = np.genfromtxt('test-matrix.csv', delimiter=',')
+    # data clean up
+    cols = [5,4,3,1,0]
+    for col in cols:
+        X = np.delete(X, col, 1)
+    # mitigate damage of missing data
+    np.nan_to_num(X, copy=False)
 
-y = np.ones((3,1))
-y[2] = 1
-print(y)
-[U,S,V] = np.linalg.svd(X, full_matrices=False)
-print(U)
-print(np.diag(S))
-print(V)
-# V is of the wrong dimensions right now
-w_hat = V @ np.linalg.inv(np.diag(S)) @ U.T @ y
-print(w_hat)
-# dot product of X * X^T
-#print(X @ X.T)
+    # load subjective results vector
+    y = np.ones((4,1))
+    y[2] = 0
+    print(y)
+
+    # calculate eigenvectors and eignevalues
+    [U,S,VH] = np.linalg.svd(X, full_matrices=False)
+    V = VH.T
+
+    #print(U)
+    #print(np.diag(S))
+    #print(V)
+    # least squares approximation using eigenvectors and eignevalues
+    w_hat = V @ np.linalg.inv(np.diag(S)) @ U.T @ y
+    print(w_hat)
+
+    return w_hat
