@@ -1,6 +1,9 @@
 import sys
 from classifier import create_classifier
-from classifier import attempt_display
+from classifier import display
+
+import pandas as pd
+import numpy as np
 
 def main (argv):
     # argv format: teams, players, (options) years
@@ -12,9 +15,11 @@ def main (argv):
     if (argv[1] == 'new'):
         train_filename = argv[2]
         w_hat = create_classifier(train_filename)
+        print(w_hat.tostring)
+        quit()
         # write least squares weights
-        fp = open("data/weights.csv", 'w+')
-        fp.write(w_hat)
+        fp = open("data/weights.csv", 'w')
+        fp.write(w_hat.tostring())
         fp.close()
 
     elif (argv[1] == 'run'):
@@ -26,8 +31,15 @@ def main (argv):
         y_hat = X @ w_hat
 
         # here I need a good way to visualize the predictions
-    else:
-        attempt_display()
+    elif: (argv[1] == 'test')
+        X = np.genfromtxt('test-matrix.csv', delimiter=',')
+        names = np.genfromtxt('test-matrix.csv', dtype=('|S20'), delimiter=',', usecols=[0])
+        # data clean up
+        cols = [5,4,3,1,0]
+        for col in cols:
+            X = np.delete(X, col, 1)
+
+        display(X, names)
 
 
     # success

@@ -1,22 +1,19 @@
 import numpy as np
-import matplotlib.pyplot as mpl
+import pandas as pd
+import matplotlib.pyplot as plt
 
-def attempt_display():
+def display(X, names):
     labels = ["Age", "G", "GS", "MP", "FG", "FGA", "FG%", "3P", "3PA", "3P%", "2P", "2PA", "2P%", "eFG%", "FT", "FTA", "FT%", "ORB", "DRB", "TRB", "AST", "STL", "BLK", "TOV", "PF", "PTS"]
-    # load training matrix
-    X = np.genfromtxt("test-matrix.csv", delimiter=',')
-    # data clean up
-    cols = [5,4,3,1,0]
-    for col in cols:
-        X = np.delete(X, col, 1)
+    Xdf = pd.DataFrame(X, index=names, columns=labels)
+    print(Xdf)
 
-    fig, ax = mpl.subplots()
-    ax.plot(labels, X[0,:], label="player1")
-    ax.plot(labels, X[1,:], label="player2")
-    ax.plot(labels, X[2,:], label="player3")
-    ax.plot(labels, X[3,:], label="player4")
+    r,c = X.shape
+
+    fig, ax = plt.subplots()
+    for i in range(0,r):
+        ax.plot(labels, X[i,:], label=names[i])
     ax.legend()
-    mpl.show()
+    plt.show()
 
     return
 
@@ -30,13 +27,13 @@ def create_classifier(train_filename):
     for col in cols:
         X = np.delete(X, col, 1)
 
-    print(X.shape)
-    quit()
+    r,c = X.shape
 
     # load subjective results vector
-    y = np.ones((4,1))
-    y[2] = 0
-    print(y)
+    y = np.ones((r,1))
+    for i in range(0,r):
+        if (i % 2 == 0):
+            y[i] = 0
 
     # calculate eigenvectors and eignevalues
     [U,S,VH] = np.linalg.svd(X, full_matrices=False)
