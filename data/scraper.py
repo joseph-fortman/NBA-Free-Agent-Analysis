@@ -2,6 +2,7 @@ import sys
 import os
 import json
 from player_stats import create_CSV
+from player_stats import group_CSV
 from player_urls import update_URLs
 
 def main (argv):
@@ -24,9 +25,19 @@ def main (argv):
 
     # treat other arguments as single player names (handle issues)
     else:
+        with open('data/urls.json') as jsonData:
+            urls = json.load(jsonData)
+        group = {}
         for term in argv:
-            # make call to module
-            print (term)
+            if ("scraper.py" in term):
+                continue
+            # correct name
+            term = term.replace(",", " ")
+            group[term] = urls[term]
+
+        # make call to module
+        group_CSV(group)
+
 
     # success
     return 1
