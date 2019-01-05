@@ -36,7 +36,7 @@ def create_CSV(urls):
 
     return
 
-# get comma delimited text of per_game data for specified year
+# get comma delimited text of per_game data of ~500 players in league
 def get_table(player_url, name):
     url = player_url
     page = urllib.request.urlopen(url)
@@ -54,7 +54,9 @@ def get_table(player_url, name):
             if (td.get_text() == ""):
                 indices.append(i)
             i += 1
-
+        # reverse the HTML element indices to ease substring replacements
+        indices = indices[::-1]
+        # get data in row
         temp = row.get_text(",") + "\n"
         if year in temp:
             # correct stat line if needed
@@ -62,7 +64,11 @@ def get_table(player_url, name):
                 k = 0
                 identifier = ""
                 while (k < j):
-                    identifier += tds[k].get_text() + ","
+                    # get text of next <td></td>
+                    str = tds[k].get_text()
+                    # check for data to avoid a non-existent comma
+                    if (str != ""):
+                        identifier += str + ","
                     k += 1
                 # replace with corrected stat line
                 temp = temp.replace(identifier, identifier+"0,")
@@ -73,3 +79,5 @@ def get_table(player_url, name):
             break
 
     return buffer
+
+## end
