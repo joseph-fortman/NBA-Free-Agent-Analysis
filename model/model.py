@@ -1,45 +1,37 @@
-import sys
-from modules.classifier import create_classifier
-from modules.classifier import display
-
-import pandas as pd
 import numpy as np
+from least_squares import calc
+from display import display
 
-def main (argv):
-    # argv format: teams, players, (options) years
-    if (len(argv) == 1):
-        print("USAGE> python model.py ['<training filename>']")
-        quit()
+training_file = '../data/matrix.csv'
+weights_file = '../data/weights.csv'
 
-    # new classifier
-    if (argv[1] == 'new'):
-        train_filename = argv[2]
-        w_hat = create_classifier(train_filename)
-        print(w_hat.tostring)
-        quit()
-        # write least squares weights
-        fp = open("data/weights.csv", 'w')
-        fp.write(w_hat.tostring())
-        fp.close()
+# create new classifier
+def model (argv):
 
-    elif (argv[1] == 'test'):
-        X = np.genfromtxt('data/test-matrix.csv', delimiter=',')
-        names_pos = np.genfromtxt('data/test-matrix.csv', dtype=('|S20'), delimiter=',', usecols=[0,5])
-        names = names_pos[:,0]
-        positions = names_pos[:,1]
-        # data clean up
-        cols = [5,4,3,1,0]
-        for col in cols:
-            X = np.delete(X, col, 1)
+    # load training matrix
+    X = np.genfromtxt(train_file, delimiter=',')
+    # handle file not found errors
+    # load subjective results vector
+    y = np.ones((r,1))
 
-        display(X, names)
+    # clean data
+    cols = [5,4,3,1,0]
+    for col in cols:
+        X = np.delete(X, col, 1)
 
+    w_hat = calc(X,y)
+    print(w_hat.tostring)
+
+    # write least squares weights
+    fp = open(weights_file, 'w')
+    fp.write(w_hat.tostring()) # doesn't work
+    fp.close()
+
+    names = np.genfromtxt(train_file, dtype=('|S20'), delimiter=',', usecols=[0])
+
+    display(X, names)
 
     # success
     return 1
-
-
-if __name__ == "__main__":
-    main(sys.argv)
 
 ## end

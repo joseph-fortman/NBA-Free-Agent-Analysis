@@ -8,7 +8,7 @@ import pandas as pd
 def classify(argv):
     # check argv[2]
     if (argv[2] == '-h' || argv[2] == '--help'):
-        print("python classify.py ['<new k filename>']")
+        print("python app.py classify '<new k filename>'")
 
     filename = argv[2]
     print (filename)

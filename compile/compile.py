@@ -17,3 +17,7 @@ def compile(argv):
             data/analysis")
 
     # start loading the data into X
+
+    positions = np.genfromtxt(train_filename, dtype=('|S20'), delimiter=',', usecols=[0])
+    names = names_pos[:,0]
+    positions = names_pos[:,1]
