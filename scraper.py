@@ -1,9 +1,9 @@
 import sys
 import os
 import json
-from player_stats import create_CSV
-from player_stats import group_CSV
-from player_urls import update_URLs
+from modules.player_stats import create_CSV
+from modules.player_stats import group_CSV
+from modules.player_urls import update_URLs
 
 def main (argv):
     # argv format: teams, players, (options) years

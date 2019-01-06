@@ -1,6 +1,6 @@
 import sys
-from classifier import create_classifier
-from classifier import display
+from modules.classifier import create_classifier
+from modules.classifier import display
 
 import pandas as pd
 import numpy as np
@@ -31,9 +31,11 @@ def main (argv):
         y_hat = X @ w_hat
 
         # here I need a good way to visualize the predictions
-    elif: (argv[1] == 'test')
+    elif (argv[1] == 'test'):
         X = np.genfromtxt('data/test-matrix.csv', delimiter=',')
-        names = np.genfromtxt('data/test-matrix.csv', dtype=('|S20'), delimiter=',', usecols=[0])
+        names_pos = np.genfromtxt('data/test-matrix.csv', dtype=('|S20'), delimiter=',', usecols=[0,5])
+        names = names_pos[:,0]
+        positions = names_pos[:,1]
         # data clean up
         cols = [5,4,3,1,0]
         for col in cols:
