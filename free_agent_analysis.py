@@ -32,8 +32,8 @@ def main (argv):
 
         # here I need a good way to visualize the predictions
     elif: (argv[1] == 'test')
-        X = np.genfromtxt('test-matrix.csv', delimiter=',')
-        names = np.genfromtxt('test-matrix.csv', dtype=('|S20'), delimiter=',', usecols=[0])
+        X = np.genfromtxt('data/test-matrix.csv', delimiter=',')
+        names = np.genfromtxt('data/test-matrix.csv', dtype=('|S20'), delimiter=',', usecols=[0])
         # data clean up
         cols = [5,4,3,1,0]
         for col in cols:

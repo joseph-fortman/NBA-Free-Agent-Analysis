@@ -20,17 +20,15 @@ def display(X, names):
 def create_classifier(train_filename):
     # load training matrix
     X = np.genfromtxt(train_filename, delimiter=',')
-    # mitigate damage of missing data
-    np.nan_to_num(X, copy=False)
     # data clean up
     cols = [5,4,3,1,0]
     for col in cols:
         X = np.delete(X, col, 1)
 
-    r,c = X.shape
-
     # load subjective results vector
     y = np.ones((r,1))
+
+    r,c = X.shape
     for i in range(0,r):
         if (i % 2 == 0):
             y[i] = 0
