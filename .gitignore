@@ -1,4 +1,7 @@
 extra/
+data/test-matrix.csv
+data/group.csv
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

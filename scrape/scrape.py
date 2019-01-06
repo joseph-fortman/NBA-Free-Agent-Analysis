@@ -1,14 +1,14 @@
 import sys
 import os
 import json
-from modules.player_stats import create_CSV
-from modules.player_stats import group_CSV
-from modules.player_urls import update_URLs
+from player_stats import create_CSV
+from player_stats import group_CSV
+from player_urls import update_URLs
 
 def main (argv):
     # argv format: teams, players, (options) years
     if (len(argv) == 1):
-        print("USAGE> python scraper.py ['all' | 'John,Wall Bradley,Beal' | 'urls']")
+        print("USAGE> python scrape.py ['all' | 'John,Wall Bradley,Beal' | 'urls']")
         quit()
 
     # get all players' per_game stats
@@ -29,7 +29,7 @@ def main (argv):
             urls = json.load(jsonData)
         group = {}
         for term in argv:
-            if ("scraper.py" in term):
+            if ("scrape.py" in term):
                 continue
             # correct name
             term = term.replace(",", " ")

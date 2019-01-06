@@ -8,7 +8,7 @@ import numpy as np
 def main (argv):
     # argv format: teams, players, (options) years
     if (len(argv) == 1):
-        print("USAGE> python free_agent_analysis.py ['run <new k filename>' | 'new <training filename>']")
+        print("USAGE> python model.py ['<training filename>']")
         quit()
 
     # new classifier
@@ -22,15 +22,6 @@ def main (argv):
         fp.write(w_hat.tostring())
         fp.close()
 
-    elif (argv[1] == 'run'):
-        filename = argv[2]
-        # handle errors here
-        X = np.genfromtxt(filename, delimiter=',')
-        w_hat = np.genfromtxt('data/weights.csv', delimiter=',')
-        # do I need to import numpy for this?
-        y_hat = X @ w_hat
-
-        # here I need a good way to visualize the predictions
     elif (argv[1] == 'test'):
         X = np.genfromtxt('data/test-matrix.csv', delimiter=',')
         names_pos = np.genfromtxt('data/test-matrix.csv', dtype=('|S20'), delimiter=',', usecols=[0,5])

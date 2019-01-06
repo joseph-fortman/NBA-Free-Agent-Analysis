@@ -23,7 +23,7 @@ def group_CSV(urls):
 
 def create_CSV(urls):
     # get permission to write
-    fp = open("data/matrix.csv", 'w+')
+    fp = open("data/stats.csv", 'w+')
     # obtain data
     data = ""
     for name in urls:

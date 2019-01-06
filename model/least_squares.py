@@ -17,6 +17,7 @@ def display(X, names):
 
     return
 
+
 def create_classifier(train_filename):
     # load training matrix
     X = np.genfromtxt(train_filename, delimiter=',')
