@@ -1,8 +1,8 @@
 import os
 import json
-from player_stats import create_CSV
-from player_stats import group_CSV
-from player_urls import update_URLs
+from scrape.player_stats import create_CSV
+from scrape.player_stats import group_CSV
+from scrape.player_urls import update_URLs
 
 def scrape (argv):
     # argv format: teams, players, (options) years

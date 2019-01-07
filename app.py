@@ -11,13 +11,14 @@ def main (argv):
         return -1
 
     # direct app
-    if (argv[1] = 'scrape'):
+    if (argv[1] == "scrape"):
+        print("here")
         scrape(argv)
-    elif (argv[1] = 'compile'):
+    elif (argv[1] == 'compile'):
         compile(argv)
-    elif (argv[1] = 'model'):
+    elif (argv[1] == 'model'):
         model(argv)
-    elif (argv[1] = 'classify'):
+    elif (argv[1] == 'classify'):
         classify(argv)
     else:
         print("USAGE> python app.py ['scrape' | 'compile' | 'model' | 'classify']")

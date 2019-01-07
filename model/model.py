@@ -1,6 +1,6 @@
 import numpy as np
-from least_squares import calc
-from display import display
+from model.least_squares import calc
+import model.display
 
 training_file = '../data/matrix.csv'
 weights_file = '../data/weights.csv'
@@ -14,11 +14,6 @@ def model (argv):
     # load subjective results vector
     y = np.ones((r,1))
 
-    # clean data
-    cols = [5,4,3,1,0]
-    for col in cols:
-        X = np.delete(X, col, 1)
-
     w_hat = calc(X,y)
     print(w_hat.tostring)
 
@@ -29,7 +24,7 @@ def model (argv):
 
     names = np.genfromtxt(train_file, dtype=('|S20'), delimiter=',', usecols=[0])
 
-    display(X, names)
+    display.display_stats(X, names)
 
     # success
     return 1
