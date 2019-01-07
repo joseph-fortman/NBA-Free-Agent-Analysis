@@ -15,7 +15,8 @@ stats_loc = 'data/stats.csv'
 salaries_loc = 'data/salaries.csv'
 matrix_loc = 'data/matrix.csv'
 
-convert = {'PG':1, 'SG':2, 'SF':3, 'PF':4, 'C':5, 'C-':5}
+convert = {'PG':1, 'PG-SG':1, 'SG-PG':2, 'SG':2, 'SG-SF':2, 'SF-SG':3, 'SF':3, 'SF-PF':3, 'PF-SF':4, 'PF':4, 'PF-C':4, 'C-PF':5, 'C':5, 'SG-PF':2}
+labels = ["Age", "G", "GS", "MP", "FG", "FGA", "FG%", "3P", "3PA", "3P%", "2P", "2PA", "2P%", "eFG%", "FT", "FTA", "FT%", "ORB", "DRB", "TRB", "AST", "STL", "BLK", "TOV", "PF", "PTS"]
 
 def compile(argv):
     # check argv[2]
@@ -31,18 +32,18 @@ def compile(argv):
     cols = [5,4,3,1,0]
     for col in cols:
         X = np.delete(X, col, 1)
+
     # convert PG,SG,SF,PF,C -> 1,2,3,4,5
-    names = np.genfromtxt(stats_loc, dtype=('|S20'), delimiter=',', usecols=[0])
-    positions = np.genfromtxt(stats_loc, dtype=('|S20'), delimiter=',', usecols=[5])
-    X = [positions,X]
-    print(X)
-    labels = ["Pos", "Age", "G", "GS", "MP", "FG", "FGA", "FG%", "3P", "3PA", "3P%", "2P", "2PA", "2P%", "eFG%", "FT", "FTA", "FT%", "ORB", "DRB", "TRB", "AST", "STL", "BLK", "TOV", "PF", "PTS"]
-    df = pd.DataFrame(X, index=names, columns=labels)
+    positions = pd.read_csv(stats_loc, names=["Pos"], usecols=[5], dtype=str)
+    positions = positions.replace({"Pos":convert})
 
-    print(df)
-    #df[1].apply(map(lambda x: ))
+    # concatenate positions and stats
+    df = pd.DataFrame(X, columns=labels)
+    df = pd.concat([positions,df], axis=1)
 
-    #[positions,stats]
+    r,c = df.shape
+    print("\n--Updated--\nmatrix.csv\n({},{})".format(r,c))
 
-def numeric_positions(v):
-    v[i][:2]
+    df.to_csv(matrix_loc, index=False)
+
+##end
