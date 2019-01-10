@@ -12,7 +12,6 @@ def main (argv):
 
     # direct app
     if (argv[1] == "scrape"):
-        print("here")
         scrape(argv)
     elif (argv[1] == 'compile'):
         compile(argv)

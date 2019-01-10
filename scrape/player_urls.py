@@ -32,7 +32,8 @@ def get_players(abc, year):
         temp = row.get_text(",") + "\n"
         if year in temp:
             a = row.find('a', href=True)
-            buffer[a.get_text()] = a['href']
-            print(a.get_text() + " " + buffer[a.get_text()])
+            str = ", ".join(a.get_text().split(" ")[::-1])
+            buffer[str] = a['href']
+            print(str + " " + buffer[str])
 
     return buffer

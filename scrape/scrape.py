@@ -11,14 +11,14 @@ def scrape (argv):
         quit()
 
     # get all players' per_game stats
-    if (argv[1] == "all"):
+    if (argv[2] == "all"):
         with open('data/urls.json') as jsonData:
             urls = json.load(jsonData)
         # send dict of (name : relative url) pairs
         create_CSV(urls)
 
     # update abc.json with relative player page links
-    elif (argv[1] == "urls"):
+    elif (argv[2] == "urls"):
         year = "2019"
         update_URLs(year)
 
@@ -28,10 +28,10 @@ def scrape (argv):
             urls = json.load(jsonData)
         group = {}
         for term in argv:
-            if ("scrape.py" in term):
+            if ("app.py" in term) or ("scrape" in term):
                 continue
             # correct name
-            term = term.replace(",", " ")
+            term = term.replace(",", ", ")
             group[term] = urls[term]
 
         # make call to module

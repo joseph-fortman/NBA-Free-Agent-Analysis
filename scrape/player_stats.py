@@ -74,7 +74,7 @@ def get_table(player_url, name):
                 temp = temp.replace(identifier, identifier+"0,")
 
             # add stat line to matrix
-            buffer += name + "," + temp
+            buffer += "\"" + name + "\"," + temp
             # this break only keeps the total stats for traded players
             break
 
