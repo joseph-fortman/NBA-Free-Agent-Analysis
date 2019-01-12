@@ -19,18 +19,14 @@ def model (argv):
     a,b = X.shape
     y = np.genfromtxt(result_file, usecols=0)
     y = np.reshape(y,(a,1))
-
+    # calculate least squares regression
     w_hat = calc(X,y)
 
-    print(w_hat.tostring)
     # write least squares weights
-    fp = open(weights_file, 'w')
-    fp.write(w_hat.tostring()) # doesn't work
-    fp.close()
+    np.savetxt(weights_file, w_hat, delimiter=',')
 
-    names = np.genfromtxt(training_file, dtype=('|S20'), delimiter=',', usecols=[0])
-
-    display.display_stats(X, names)
+    #names = np.genfromtxt(training_file, dtype=('|S20'), delimiter=',', usecols=[0])
+    #display.display_stats(X, names)
 
     # success
     return 1
