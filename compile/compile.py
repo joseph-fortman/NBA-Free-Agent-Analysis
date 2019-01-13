@@ -3,6 +3,7 @@ import pandas as pd
 stats_loc = 'data/stats.csv'
 salaries_loc = 'data/salaries.csv'
 matrix_loc = 'data/matrix.csv'
+names_loc = 'data/names.csv'
 
 convert = {'PG':1, 'PG-SG':1, 'SG-PG':2, 'SG':2, 'SG-SF':2, 'SF-SG':3, 'SF':3, 'SF-PF':3, 'PF-SF':4, 'PF':4, 'PF-C':4, 'C-PF':5, 'C':5, 'SG-PF':2}
 labels = ["Name", "Age", "Pos", "G", "GS", "MP", "FG", "FGA", "FG%", "3P", "3PA", "3P%", "2P", "2PA", "2P%", "eFG%", "FT", "FTA", "FT%", "ORB", "DRB", "TRB", "AST", "STL", "BLK", "TOV", "PF", "PTS"]
@@ -22,10 +23,12 @@ def compile(argv):
     stats_df = stats()
     # only keep intersection of DataFrames
     df = stats_df.merge(salary_df, how='inner', on='Name')
+    names = df['Name']
     # name column not needed anymore
     df.drop(labels='Name', axis=1, inplace=True)
     # write cleansed data
     df.to_csv(matrix_loc, index=False)
+    names.to_csv(names_loc, index=False)
 
     r,c = df.shape
     print("\n--Updated--\nmatrix.csv\n({},{})".format(r,c))
