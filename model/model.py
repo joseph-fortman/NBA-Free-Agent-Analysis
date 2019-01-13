@@ -11,8 +11,8 @@ def model (argv):
 
     # load training matrix
     print(training_file)
-    X = np.genfromtxt('data/matrix.csv', delimiter=',', skip_header=1)
-    # handle random nan values
+    X = np.genfromtxt(training_file, delimiter=',', skip_header=1)
+    # handle random nan values. IS THIS NEEDED? I'm guessing no
     np.nan_to_num(X, copy=False)
 
     # load subjective results vector and reshape to avoid (x,)
@@ -25,8 +25,7 @@ def model (argv):
     # write least squares weights
     np.savetxt(weights_file, w_hat, delimiter=',')
 
-    #names = np.genfromtxt(training_file, dtype=('|S20'), delimiter=',', usecols=[0])
-    #display.display_stats(X, names)
+    display.display_stats(w_hat, y)
 
     # success
     return 1
