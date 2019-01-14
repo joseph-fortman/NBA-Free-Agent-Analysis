@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 training_file = 'data/matrix.csv'
 names_file = 'data/names.csv'
 
-def display_stats(w_hat, y):
+def stats(w_hat, y):
     names = pd.read_csv(names_file, names=['Name'])
     df = pd.read_csv(training_file)
 
@@ -16,4 +16,14 @@ def display_stats(w_hat, y):
     ax.legend()
     plt.show()
 
+    return
+
+# display eigenvalues for analysis
+def eigenvalues(Sigma):
+    print (Sigma)
+    return
+
+def eigenvectors(U,V):
+    print (U)
+    print (V)
     return

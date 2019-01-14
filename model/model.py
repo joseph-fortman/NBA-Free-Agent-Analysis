@@ -21,7 +21,7 @@ def model (argv):
     # write least squares weights
     np.savetxt(weights_file, w_hat, delimiter=',')
 
-    disp.display_stats(w_hat, y)
+    disp.stats(w_hat, y)
 
     # success
     return 1
