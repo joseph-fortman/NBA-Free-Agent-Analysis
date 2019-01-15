@@ -20,10 +20,12 @@ def stats(w_hat, y):
 
 # display eigenvalues for analysis
 def eigenvalues(Sigma):
+    a = len(Sigma)
+    print ("Eigenvalues:")
     print (Sigma)
     return
 
 def eigenvectors(U,V):
-    print (U)
-    print (V)
+    print (U.shape)
+    print (V.shape)
     return
