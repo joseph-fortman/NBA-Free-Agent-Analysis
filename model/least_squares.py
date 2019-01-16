@@ -12,6 +12,7 @@ def calc(X,y):
     [U,S,V] = np.linalg.svd(X, full_matrices=False)
     V = V.T
 
+    # Print for analysis
     disp.eigenvalues(S)
     disp.eigenvectors(U,V)
 

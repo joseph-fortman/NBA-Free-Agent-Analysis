@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 
 training_file = 'data/matrix.csv'
@@ -20,12 +21,25 @@ def stats(w_hat, y):
 
 # display eigenvalues for analysis
 def eigenvalues(Sigma):
-    a = len(Sigma)
-    print ("Eigenvalues:")
-    print (Sigma)
+    # plot and save model Eigenvalues
+    fig, ax = plt.subplots()
+    index = np.arange(len(Sigma))
+
+    ax.plot(index, Sigma, 'go')
+    ax.set(xlabel='index', ylabel='S value', title='Eigenvalues')
+    ax.grid()
+
+    fig.savefig("model/test.png")
+    plt.show()
+
+    # print dimensions
+    print ("S:")
+    print (Sigma.shape)
     return
 
 def eigenvectors(U,V):
-    print (U.shape)
-    print (V.shape)
+    print("U: ")
+    print(U.shape)
+    print("V: ")
+    print(V.shape)
     return

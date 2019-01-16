@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 stats_loc = 'data/stats.csv'
 salaries_loc = 'data/salaries.csv'
@@ -26,6 +27,7 @@ def compile(argv):
     names = df['Name']
     # name column not needed anymore
     df.drop(labels='Name', axis=1, inplace=True)
+    TEMP_DISPLAY(df)
     # write cleansed data
     df.to_csv(matrix_loc, index=False)
     names.to_csv(names_loc, index=False)
@@ -69,5 +71,21 @@ def stats():
     # convert PG,SG,SF,PF,C -> 1,2,3,4,5
     return df.replace({"Pos":convert})
 
+def TEMP_DISPLAY(df):
+    # What do GMs pay the most for?
+    df['per year'] = df['salary left'] / df['years left']
+    #print(df['per year'])
+    df = df.sort_values(by=['per year'])
+    df.drop(df.columns[[27,28,29,30,31]], axis=1, inplace=True)
+    arr = df.values
+    print(arr)
+    print(arr.dtype)
+
+    fig, ax = plt.subplots()
+    ax.pcolormesh(arr)
+
+    plt.show()
+
+    quit()
 
 # end functions
