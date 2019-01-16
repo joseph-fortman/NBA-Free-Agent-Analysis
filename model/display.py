@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 training_file = 'data/matrix.csv'
@@ -43,3 +44,25 @@ def eigenvectors(U,V):
     print("V: ")
     print(V.shape)
     return
+
+# mixed visuals
+
+def pay_trends(X):
+    # What do GMs pay the most for?
+    a,b = X.shape
+    print (X.shape)
+    X = np.hstack((X,np.zeros([a,1])))
+    # per year pay = salary left / years left
+    X[:,32] = X[:,31] / X[:,30]
+    # returns indices that would sort the matrix
+    ind = np.argsort(X[:,32])
+    # sort the matrix
+    X = X[ind]
+    # delete salary columns
+    X = np.delete(X,[27,28,29,30,31,32], 1)
+    # take the norm
+    X_norm = X / X.max(axis=0)
+    # display
+    fig, ax = plt.subplots()
+    ax.pcolormesh(X_norm)
+    plt.show()

@@ -10,7 +10,7 @@ weights_file = 'data/weights.csv'
 def model (argv):
     # load training matrix
     X = np.genfromtxt(training_file, delimiter=',', skip_header=1)
-
+    disp.pay_trends(X)
     # load subjective results vector and reshape to avoid (x,)
     a,b = X.shape
     y = np.genfromtxt(result_file, usecols=0)
