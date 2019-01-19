@@ -20,13 +20,16 @@ def stats(w_hat, y):
 
     return
 
-# display eigenvalues for analysis
-def eigenvalues(Sigma):
+# display eigenvectors and values for analysis
+def eigens(X):
+    # calculate eigenvectors and eignevalues
+    [U,S,V] = np.linalg.svd(X, full_matrices=False)
+    V = V.T
     # plot and save model Eigenvalues
     fig, ax = plt.subplots()
-    index = np.arange(len(Sigma))
+    index = np.arange(len(S))
 
-    ax.plot(index, Sigma, 'go')
+    ax.plot(index, S, 'go')
     ax.set(xlabel='index', ylabel='S value', title='Eigenvalues')
     ax.grid()
 
@@ -34,18 +37,15 @@ def eigenvalues(Sigma):
     plt.show()
 
     # print dimensions
+    print ("U: ")
+    print (U.shape)
     print ("S:")
-    print (Sigma.shape)
+    print (S.shape)
+    print ("V: ")
+    print (V.shape)
     return
 
-def eigenvectors(U,V):
-    print("U: ")
-    print(U.shape)
-    print("V: ")
-    print(V.shape)
-    return
-
-# mixed visuals
+## mixed visuals
 
 def pay_trends(X):
     # What do GMs pay the most for?

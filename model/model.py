@@ -1,5 +1,5 @@
 import numpy as np
-from model.least_squares import calc
+from model.least_squares import cross_validate
 import model.display as disp
 
 training_file = 'data/matrix.csv'
@@ -16,11 +16,12 @@ def model (argv):
     y = np.genfromtxt(result_file, usecols=0)
     y = np.reshape(y,(a,1))
     # calculate least squares regression
-    w_hat = calc(X,y)
-
+    w_hat = cross_validate(X,y)
     # write least squares weights
     np.savetxt(weights_file, w_hat, delimiter=',')
 
+    # Print for analysis
+    disp.eigens(X)
     disp.stats(w_hat, y)
 
     # success
