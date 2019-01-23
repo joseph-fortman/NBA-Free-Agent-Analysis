@@ -15,12 +15,14 @@ def cross_validate (X,y):
     best = 0
     weights = []
     X_final = []
+    lambdas = [.001, .01, .1, 1, 5, 10, 100, 1000, 10000, 100000]
 
     for j in range(sets):
         # get dataset splits
         X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=.2)
         # least squares minimization
         w_hat = calc(X_train, y_train)
+        #w_hat = Tikhonov (X_train, y_train, lambdas[j])
         y_hat = X_test @ w_hat
         # get correct predition percentage
         accuracy = check(y_hat,y_test)
@@ -54,6 +56,20 @@ def calc (X,y):
 
     return w_hat
 
+# calculate a Tikhonov Regression classifier
+def Tikhonov (X,y,l):
+    #disp.eigens(X)
+    # calculate eigenvectors and eignevalues
+    [U,S,V] = np.linalg.svd(X, full_matrices=False)
+    # simplify equation
+    S = np.diag(S)
+    a,b = S.shape
+    I = np.identity(a)
+    S2 = np.square(S)
+    # Tikhonov regularized least squares approximation using SVD
+    w_hat = V.T @ np.linalg.inv(S2 + l*I) @ U.T @ y
+
+    return w_hat
 
 # count correct predictions
 def check(y_hat, y):
