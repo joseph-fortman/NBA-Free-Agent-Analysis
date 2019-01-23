@@ -21,7 +21,6 @@ def model (argv):
     np.savetxt(weights_file, w_hat, delimiter=',')
 
     # Print for analysis
-    disp.eigens(X)
     disp.stats(w_hat, y)
 
     # success
