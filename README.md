@@ -16,6 +16,22 @@ Player stats will be acquired from SportsReference [2] via the web scraping Pyth
 
 Currently, only 2018-19 season data has been compiled. With so many features, 380 records is not enough for a good classifier. By the 2019 free agent market opening in July I hope to have a larger dataset ready.
 
+## Subjective Player Valuations [-3, 3]
+Given the terms of a player’s contract, they are scored as follows:
+
+  (-3) Exceptional negative impact on team success and outlook
+  (-2) Harmful to team success and outlook
+  (-1) Almost expiring contract, negative presence, only fair value based on team needs
+  (0) Fair market value, replaceable, liquid as trade filler, select minimum contracts
+  (1) Expiring contract, positive presence, young potential
+  (2) Beneficial to team success
+  (3) Exceptional contributions to team success given the terms of his contract
+
+As the above are only guidelines, they are meant to be broken and stretched. Seven numbers cannot classify the value of NBA players, thus, the disregard for guidelines in various circumstances will blur the lines and provide for a better mathematical decision.
+
+## Model
+The current model uses a simple least squares minimization classifier. Much improvement can be made on this front, and will be with time. I will likely move from a classifier made from scratch to using an API like TPOT [5].
+
 ## Citations
 [1] https://www.pagat.com/poker/variants/5stud.html
 
@@ -24,3 +40,5 @@ Currently, only 2018-19 season data has been compiled. With so many features, 38
 [3] [Keith Smith - NBA Salaries & Rosters Sheets](https://docs.google.com/spreadsheets/d/1T2Eg_zvqNqQD_5TpE4Ns6xhElatXdLpYG1roZtRLyvE/edit?usp=sharing)
 
 [4] https://forums.realgm.com/boards/viewforum.php?f=243
+
+[5] https://github.com/EpistasisLab/tpot
