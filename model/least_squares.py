@@ -21,6 +21,7 @@ def cross_validate (X,y):
         # get dataset splits
         X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=.2)
         # least squares minimization
+        # TODO consider TPOT calls to determine best models
         w_hat = calc(X_train, y_train)
         #w_hat = Tikhonov (X_train, y_train, lambdas[j])
         y_hat = X_test @ w_hat
@@ -81,10 +82,6 @@ def check(y_hat, y):
     y_hat[(y_hat > 0.5) & (y_hat < 1.5)] = 1
     y_hat[(y_hat > 1.5) & (y_hat < 2.5)] = 2
     y_hat[(y_hat > 2.5)] = 3
-
-    #print (y_hat)
-    #print (y)
-    #print ("-")
 
     z = y_hat - y
     incorrect = np.count_nonzero(z)

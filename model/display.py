@@ -12,9 +12,14 @@ def stats(w_hat, y):
 
     r,c = df.shape
 
+    norm = np.sqrt(np.square(df).sum(axis=0))
+    # take the norm
+    #norm = pd.DataFrame((df.values / df.values.max(axis=0)))
+    
     fig, ax = plt.subplots()
-    for i in range(0,15):
+    for i in range(0,2):
         ax.plot(list(df), df.iloc[i,:], label=names.iloc[i,0])
+        #ax.plot(list(norm), norm.iloc[i,:], label=names.iloc[i,0])
     ax.legend()
     plt.show()
 
