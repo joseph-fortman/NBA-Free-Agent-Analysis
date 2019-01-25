@@ -16,15 +16,21 @@ Player stats will be acquired from SportsReference [2] via the web scraping Pyth
 
 Currently, only 2018-19 season data has been compiled. With so many features, 380 records is not enough for a good classifier. By the 2019 free agent market opening in July I hope to have a larger dataset ready.
 
-## Subjective Player Valuations [-3, 3]
+## Subjective Player Valuations
 Given the terms of a player’s contract, they are scored as follows:
 
   (-3) Exceptional negative impact on team success and outlook
+
   (-2) Harmful to team success and outlook
+
   (-1) Almost expiring contract, negative presence, only fair value based on team needs
+
   (0) Fair market value, replaceable, liquid as trade filler, select minimum contracts
+
   (1) Expiring contract, positive presence, young potential
+
   (2) Beneficial to team success
+
   (3) Exceptional contributions to team success given the terms of his contract
 
 As the above are only guidelines, they are meant to be broken and stretched. Seven numbers cannot classify the value of NBA players, thus, the disregard for guidelines in various circumstances will blur the lines and provide for a better mathematical decision.
