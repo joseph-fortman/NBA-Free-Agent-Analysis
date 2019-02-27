@@ -15,7 +15,7 @@ def stats(w_hat, y):
     norm = np.sqrt(np.square(df).sum(axis=0))
     # take the norm
     #norm = pd.DataFrame((df.values / df.values.max(axis=0)))
-    
+
     fig, ax = plt.subplots()
     for i in range(0,2):
         ax.plot(list(df), df.iloc[i,:], label=names.iloc[i,0])
@@ -52,17 +52,17 @@ def eigens(X):
 
 ## mixed visuals
 
+# What do GMs pay the most for?
 def pay_trends(X):
-    # What do GMs pay the most for?
     a,b = X.shape
     print (X.shape)
     X = np.hstack((X,np.zeros([a,1])))
     # per year pay = salary left / years left
     X[:,32] = X[:,31] / X[:,30]
     # returns indices that would sort the matrix
-    ind = np.argsort(X[:,32])
+    indices = np.argsort(X[:,32])
     # sort the matrix
-    X = X[ind]
+    X = X[indices]
     # delete salary columns
     X = np.delete(X,[27,28,29,30,31,32], 1)
     # take the norm

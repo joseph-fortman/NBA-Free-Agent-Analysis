@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 def cross_validate (X,y):
     a,b = X.shape
 
-    # cross validate model
+    # extra model parameters
     total_ac = 0
     sets = 10
     best = 0
@@ -17,13 +17,14 @@ def cross_validate (X,y):
     X_final = []
     lambdas = [.001, .01, .1, 1, 5, 10, 100, 1000, 10000, 100000]
 
+    # cross validate model
     for j in range(sets):
         # get dataset splits
         X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=.2)
         # least squares minimization
         # TODO consider TPOT calls to determine best models
-        w_hat = calc(X_train, y_train)
-        #w_hat = Tikhonov (X_train, y_train, lambdas[j])
+        #w_hat = calc(X_train, y_train)
+        w_hat = Tikhonov (X_train, y_train, lambdas[j])
         y_hat = X_test @ w_hat
         # get correct predition percentage
         accuracy = check(y_hat,y_test)

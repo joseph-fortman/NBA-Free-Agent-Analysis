@@ -6,9 +6,10 @@ EXT = "https://www.basketball-reference.com"
 table = "per_game"
 year = "2018-19"
 
-def group_CSV(urls):
+# gather player stats
+def create_CSV(urls, file):
     # get permission to write
-    fp = open("data/group.csv", 'w+')
+    fp = open(file, 'w+')
     # obtain data
     data = ""
     for name in urls:
@@ -21,22 +22,7 @@ def group_CSV(urls):
 
     return
 
-def create_CSV(urls):
-    # get permission to write
-    fp = open("data/stats.csv", 'w+')
-    # obtain data
-    data = ""
-    for name in urls:
-        print(name + " " + EXT+urls[name])
-        data += get_table(EXT + urls[name], name)
-        time.sleep(1)
-    # write all contents
-    fp.write(data)
-    fp.close()
-
-    return
-
-# get comma delimited text of per_game data of ~500 players in league
+# get comma delimited text of per_game data of ~500 players in league/yr
 def get_table(player_url, name):
     url = player_url
     page = urllib.request.urlopen(url)
@@ -46,10 +32,10 @@ def get_table(player_url, name):
     buffer = ""
     # traverse per_game data for relevent years
     for row in rows:
-        # check for missing values
         tds = row.find_all('td')
         indices = []
         i = 0
+        # find all indices with missing values
         for td in tds:
             if (td.get_text() == ""):
                 indices.append(i)
